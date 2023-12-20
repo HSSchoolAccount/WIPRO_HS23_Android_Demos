@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Three.js Texture Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+	<h1>Hello Texture!</h1>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        let scene = new THREE.Scene();
+        let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        let renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        let textureLoader = new THREE.TextureLoader();
+        textureLoader.load('zweite_etage.png', function(texture) {
+            let geometry = new THREE.PlaneGeometry(5, 5);
+            let material = new THREE.MeshBasicMaterial({ map: texture });
+            let plane = new THREE.Mesh(geometry, material);
+            scene.add(plane);
+        });
+
+        camera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+	<img src="zweite_etage.png" alt="Bild von Zweite Etage">
+</body>
+</html>

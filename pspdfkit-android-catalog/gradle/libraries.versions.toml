@@ -1,0 +1,47 @@
+[versions]
+minSdk = "21"
+targetSdk = "33"
+compileSdk = "33"
+jvmTarget = "11"
+
+activityCompose = "1.7.1"
+androidGradlePlugin = "8.1.1"
+barcodeScanner = "1.9.8"
+composeCompiler = "1.4.4"
+composeMaterial = "1.4.2"
+composeRuntime = "1.4.2"
+composeUi = "1.4.2"
+datastorePreferences = "1.0.0"
+fragmentKtx = "1.5.6"
+gson = "2.9.0"
+junit = "4.13.2"
+kotlin = "1.8.10"
+lifecycleRuntimeKtx = "2.6.1"
+okhttp3 = "4.11.0"
+picasso = "2.5.2"
+retrofit = "2.9.0"
+rxKotlin = "3.0.1"
+
+[libraries]
+androidGradle-core = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+androidx-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+barcodescanner = { module = "me.dm7.barcodescanner:zxing", version.ref = "barcodeScanner" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
+compose-material = { module = "androidx.compose.material:material", version.ref = "composeMaterial" }
+compose-rxjava3 = { module = "androidx.compose.runtime:runtime-rxjava3", version.ref = "composeRuntime" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "composeUi" }
+compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeUi" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeUi" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeUi" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+junit = { module = "junit:junit", version.ref = "junit" }
+kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+reactivex-rxKotlin = { module = "io.reactivex.rxjava3:rxkotlin", version.ref = "rxKotlin" }
+squareup-picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
+squareup-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+squareup-retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+squareup-retrofit-okhttp3-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3" }
+squareup-retrofit-rxjava3 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "retrofit" }

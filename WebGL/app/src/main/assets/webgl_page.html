@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Display with WebGL</title>
+    <!-- Include Three.js from CDN for WebGL functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script>
+        // Set up the scene, camera, and renderer
+        let scene = new THREE.Scene();
+        let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        let renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Load the image (converted from PDF)
+        let texture = new THREE.TextureLoader().load('eye.png',function(texture) { /* ... */ },
+            undefined, // onProgress callback, not needed here
+            function(error) {
+                console.error('An error happened during loading the texture:', error);
+            }
+        ); // Replace with your image path
+        let geometry = new THREE.PlaneGeometry(5, 5); // Geometry for a flat plane
+        let material = new THREE.MeshBasicMaterial({ map: texture }); // Material with the texture
+        let plane = new THREE.Mesh(geometry, material); // Create a mesh with the geometry and material
+        scene.add(plane);
+
+        camera.position.z = 5;
+
+        // Animation loop to render the scene
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

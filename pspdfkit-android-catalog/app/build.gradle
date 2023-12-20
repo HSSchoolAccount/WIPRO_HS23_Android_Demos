@@ -1,0 +1,142 @@
+/*
+ *   Copyright © 2019-2023 PSPDFKit GmbH. All rights reserved.
+ *
+ *   The PSPDFKit Sample applications are licensed with a modified BSD license.
+ *   Please see License for details. This notice may not be removed from this file.
+ */
+
+import org.jetbrains.kotlin.gradle.tasks.*
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdk libs.versions.compileSdk.get().toInteger()
+
+    defaultConfig {
+        applicationId "com.pspdfkit.catalog"
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
+
+        versionCode 137449
+        versionName '8.9.1'
+
+        vectorDrawables {
+            useSupportLibrary true
+        }
+
+        resValue "string", "PSPDFKIT_LICENSE_KEY", "\"LICENSE_KEY_GOES_HERE\""
+        resValue "string", "YOUTUBE_API_KEY", "\"YOUTUBE_API_KEY_GOES_HERE\""
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = libs.versions.jvmTarget.get()
+    }
+
+    buildFeatures {
+        compose true
+        buildConfig true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.composeCompiler.get()
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    namespace 'com.pspdfkit.catalog'
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+
+    }
+
+    sourceSets {
+        main {
+            java {
+                // Add support for separate Kotlin files.
+                srcDir 'src/main/kotlin'
+            }
+        }
+    }
+
+    lint {
+        warningsAsErrors true
+        baseline file('lint-baseline.xml')
+    }
+}
+
+dependencies {
+    // PSPDFKit is integrated from the PSPDFKit Maven repository. See the `repositories` block at the beginning
+    // of this file, which shows how to set up the repository in your app.
+    implementation "com.pspdfkit:pspdfkit:8.9.1"
+
+    // OCR library + English language pack.
+    implementation "com.pspdfkit:pspdfkit-ocr:8.9.1"
+    implementation "com.pspdfkit:pspdfkit-ocr-english:8.9.1"
+
+
+    // Androidx
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.lifecycle)
+
+    // Compose
+    implementation(libs.compose.activity)
+    implementation(libs.compose.compiler)
+    implementation(libs.compose.material)
+    implementation(libs.compose.rxjava3)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.tooling.preview)
+    androidTestImplementation(libs.compose.ui.test.junit4)
+
+
+    // Picasso (image loading for inline galleries).
+    implementation(libs.squareup.picasso)
+
+    // Retrofit and Gson required by Instant examples.
+    implementation(libs.gson)
+    implementation(libs.squareup.retrofit)
+    implementation(libs.squareup.retrofit.gson)
+    implementation(libs.squareup.retrofit.rxjava3)
+
+    // Barcode Scanner
+    implementation(libs.barcodescanner)
+
+    // Kotlin utils.
+    implementation(libs.reactivex.rxKotlin)
+
+    // Junit
+    testImplementation(libs.junit)
+
+    // Http logging.
+    implementation(libs.squareup.retrofit.okhttp3.logging)
+
+    // YouTube player (inline videos).
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+}
+
+// By default, the Kotlin compiler targets Java 6. This means that if you are using Java 8 source compatibility
+// in your Java code, you can’t use Java 8 features, like calling to default interfaces of Java classes, in Kotlin code.
+// This snippet enables Java 8 support for Kotlin in catalog.
+tasks.withType(KotlinCompile).all {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    kotlinOptions {
+        jvmTarget = libs.versions.jvmTarget.get()
+        freeCompilerArgs += '-opt-in=kotlin.RequiresOptIn'
+    }
+}
